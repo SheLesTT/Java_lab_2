@@ -19,11 +19,20 @@ import java.util.ArrayList;
 public class Names_Excel_Provider {
 
 
-    private String file;
+
     private XSSFWorkbook wb;
     Random rand = new Random();
 
 
+    ArrayList<String> english_courses = new ArrayList<String>();
+
+    ArrayList<String> english_professors = new ArrayList<String>();
+    //        names.add(f_teacher_second_name);
+    ArrayList<String> english_uni = new ArrayList<String>();
+//        names.add(f_first_name);
+
+    ArrayList<String> russian_courses = new ArrayList<String>();
+    //        names.add(m_firstname);
     ArrayList<String> m_teacher_second_name = new ArrayList<String>();
 //        names.add(m_teacher_second_name);
 
@@ -47,24 +56,21 @@ public class Names_Excel_Provider {
 
     ArrayList<String> f_s_last_name = new ArrayList<String>();
 
-    public void run() {
-        loadFile();
+    public void run_for_names(String file) {
+        loadFile(file);
         readNames();
         close();
-        System.out.println(f_teacher_second_name.size());
-        System.out.println(m_teacher_second_name.size());
-       System.out.println(m_middle_name);
+    }
+    public void run_for_courses(String file) {
+        loadFile(file);
+        readCourses();
+        close();
     }
 
-    public Names_Excel_Provider() {
-        init();
-    }
 
-    private void init() {
-        file = "C:\\jupyter\\second_names.xlsx";
-    }
 
-    public void loadFile() {
+    public void loadFile(String file) {
+
         try {
             wb = new XSSFWorkbook(new FileInputStream(file));
         } catch (IOException ex) {
@@ -114,6 +120,19 @@ public class Names_Excel_Provider {
         }
     }
 
+
+    private void readCourses() {
+        XSSFSheet sheet = wb.getSheetAt(0);
+        int rows = sheet.getLastRowNum();
+        for (int r = 1; r <= rows; r++) {
+            XSSFRow row = sheet.getRow(r);
+            cell_is_full(english_courses, row.getCell(0));
+            cell_is_full(english_professors, row.getCell(1));
+            cell_is_full(english_uni, row.getCell(2));
+            cell_is_full(russian_courses, row.getCell(3));
+
+        }
+    }
 //    public ArrayList<String> getM_teacher_second_name() {
 //        return m_teacher_second_name;
 //    }
@@ -181,25 +200,25 @@ public class Names_Excel_Provider {
         int n = rand.nextInt(m_teacher_second_name.size());
         return m_teacher_second_name.get(n);
     }
+    public String getEnglish_courses() {
+        int n = rand.nextInt(english_courses.size());
+        return english_courses.get(n);
+    }
 
-    //    public static HashMap<String, ArrayList<String>> getNames() throws IOException {
-//        String excelFilePath = "C:\\jupyter\\second_names.xlsx";
-//        XSSFWorkbook myExcelBook = new XSSFWorkbook(new FileInputStream(excelFilePath));
-//        XSSFSheet sheet = myExcelBook.getSheetAt(0);
+    public String getEnglish_professors() {
+        int n  = rand.nextInt(english_professors.size());
+        return english_professors.get(n);
+    }
 
+    public String getEnglish_uni() {
+        int n = rand.nextInt(english_uni.size());
+        return english_uni.get(n);
+    }
 
-//        names.add(f_s_last_name);
-
-
-//        System.out.println(m_middle_name);
-//        names.put("m_middle_name", m_middle_name);
-//        names.put("f_middle_name", f_middle_name);
-//        names.put("f_firstname", f_firstname);
-//        names.put("m_firstname", m_firstname);
-//        names.put("f_s_last_name", f_s_last_name);
-//        names.put("m_s_last_name", m_s_last_name);
-//        names.put("m_teacher_second_name", m_teacher_second_name);
-//        names.put("f_teacher_second_name", f_teacher_second_name);
+    public String getRussian_courses() {
+        int n = rand.nextInt(russian_courses.size());
+        return russian_courses.get(n);
+    }
 
 
     }

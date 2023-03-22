@@ -30,31 +30,29 @@ public class NewJFrame extends javax.swing.JFrame {
     public ArrayList<Person> getPersons() {
         DataManipulation dm = new DataManipulation();
         Names_Excel_Provider provider = new Names_Excel_Provider();
-        //        Names_Excel_Provider second_provider = new Names_Excel_Provider();
-        Courses_Excel_Provider course_provider = new Courses_Excel_Provider();
 
-        course_provider.run();
-        provider.run();
-//        Warehouse warehouse = new Warehouse(provider);
-//        dm.GeneratePersons(provider);
-//        dm.GenerateData(course_provider, provider);
-        return dm.DataManipulation(course_provider, provider);
+        provider.run_for_names("C:\\jupyter\\second_names.xlsx");
+        provider.run_for_courses("C:\\jupyter\\courses.xlsx");
+
+        return dm.DataManipulation(provider);
     }
 
     public void Load(ArrayList<Person> stuff) {
 
         DefaultMutableTreeNode students = new DefaultMutableTreeNode("Students");
         DefaultMutableTreeNode professors = new DefaultMutableTreeNode("Professors");
+
         for (Person person : stuff) {
             if (person.getClass() == Professor.class) {
-                String node = person.getSecond_name()+ " " + person.getName()+ " "+ person.getThird_name();
+                String node = person.getSecond_name() + " " + person.getName() + " " + person.getThird_name();
                 DefaultMutableTreeNode prof = new DefaultMutableTreeNode(node);
                 ArrayList<Book> books = person.getBooks();
                 for (Book book : books) {
                     prof.add(new DefaultMutableTreeNode(book.getTitle()));
                 }
                 professors.add(prof);
-            } else {String node = person.getSecond_name()+ " " + person.getName()+ " "+ person.getThird_name();
+            } else {
+                String node = person.getSecond_name() + " " + person.getName() + " " + person.getThird_name();
                 DefaultMutableTreeNode prof = new DefaultMutableTreeNode(node);
                 ArrayList<Book> books = person.getBooks();
                 for (Book book : books) {

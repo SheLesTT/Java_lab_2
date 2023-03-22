@@ -2,8 +2,8 @@
 import java.util.Random;
 public class GenerateEnglishBookData  implements GenerateBookData {
 
-    Courses_Excel_Provider provider;
-    GenerateEnglishBookData(Courses_Excel_Provider provider){
+    Names_Excel_Provider provider;
+    GenerateEnglishBookData(Names_Excel_Provider provider){
         this.provider = provider;
     }
     @Override

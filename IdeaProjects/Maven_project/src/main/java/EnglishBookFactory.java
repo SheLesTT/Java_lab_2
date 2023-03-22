@@ -4,16 +4,16 @@ import java.util.Random;
 
 public class EnglishBookFactory implements BookFactory {
 
-    Courses_Excel_Provider course_provider;
+    Names_Excel_Provider provider;
 
-    public EnglishBookFactory(Courses_Excel_Provider course_provider){
-        this.course_provider = course_provider;
+    public EnglishBookFactory(Names_Excel_Provider course_provider){
+        this.provider = course_provider;
     }
 
     @Override
     public Fiction createFiction() {
 
-        GenerateBookData generateData = new GenerateEnglishBookData(this.course_provider);
+        GenerateBookData generateData = new GenerateEnglishBookData(this.provider);
         return new EnglishFiction(generateData);
     }
 
@@ -27,14 +27,14 @@ public class EnglishBookFactory implements BookFactory {
     }
 
     private String EnglishTextbookTitle(){
-        return course_provider.getEnglish_courses();
+        return provider.getEnglish_courses();
     }
 
     private String EnglishTextbookAuthor(){
-        return course_provider.getEnglish_professors();
+        return provider.getEnglish_professors();
     }
     private  String EnglishTextbookUni(){
-        return course_provider.getEnglish_uni();
+        return provider.getEnglish_uni();
     }
 
     private String EnglishTextbookLevel(){

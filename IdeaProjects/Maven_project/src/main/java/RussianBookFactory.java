@@ -1,10 +1,10 @@
 public class RussianBookFactory implements BookFactory {
     private Names_Excel_Provider provider;
-    private Courses_Excel_Provider courses_provider;
 
-    public RussianBookFactory(Names_Excel_Provider provider, Courses_Excel_Provider courses_provider){
+
+    public RussianBookFactory(Names_Excel_Provider provider){
         this.provider = provider;
-        this.courses_provider = courses_provider;
+
     }
     @Override
     public Fiction createFiction() {
@@ -21,7 +21,7 @@ public class RussianBookFactory implements BookFactory {
     }
 
     private String RussianTextbookTitle(){
-        return courses_provider.getRussian_courses();
+        return provider.getRussian_courses();
     }
 
     private String RussianTextbookAuthor(){
