@@ -133,33 +133,6 @@ public class Names_Excel_Provider {
 
         }
     }
-//    public ArrayList<String> getM_teacher_second_name() {
-//        return m_teacher_second_name;
-//    }
-//
-//    public ArrayList<String> getM_firstname() {
-//        return m_firstname;
-//    }
-//
-//    public ArrayList<String> getM_middle_name() {
-//        return m_middle_name;
-//    }
-//
-//    public ArrayList<String> getF_middle_name() {
-//        return f_middle_name;
-//    }
-//
-//    public ArrayList<String> getM_s_last_name() {
-//        return m_s_last_name;
-//    }
-//
-//    public ArrayList<String> getF_s_last_name() {
-//        return f_s_last_name;
-//    }
-//
-//    public ArrayList<String> getF_teacher_second_name() {
-//        return f_teacher_second_name;
-//    }
 
     public String getF_firstname() {
         int number = rand.nextInt(f_firstname.size());

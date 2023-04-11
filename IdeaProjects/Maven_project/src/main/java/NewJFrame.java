@@ -31,8 +31,8 @@ public class NewJFrame extends javax.swing.JFrame {
         DataManipulation dm = new DataManipulation();
         Names_Excel_Provider provider = new Names_Excel_Provider();
 
-        provider.run_for_names("C:\\jupyter\\second_names.xlsx");
-        provider.run_for_courses("C:\\jupyter\\courses.xlsx");
+        provider.run_for_names(".\\second_names.xlsx");
+        provider.run_for_courses(".\\courses.xlsx");
 
         return dm.DataManipulation(provider);
     }
