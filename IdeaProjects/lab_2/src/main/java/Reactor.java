@@ -1,9 +1,8 @@
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+
 
 @XmlRootElement
 public class Reactor {
@@ -102,8 +101,6 @@ public class Reactor {
             String key_value_str = key + ": " + value;
             System.out.println(key_value_str);
             main.add(new DefaultMutableTreeNode(key_value_str));
-
-
         }
         return main;
     }

@@ -2,10 +2,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -16,7 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FileReader {
@@ -39,7 +35,6 @@ public class FileReader {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         ArrayList<Reactor> collection = (ArrayList<Reactor>) mapper.readValue(file, new TypeReference<List<Reactor>>() {});
         setSource(collection,"yaml");
-//        collection.setImportMethod("Yaml");
         return collection;
     }
 
