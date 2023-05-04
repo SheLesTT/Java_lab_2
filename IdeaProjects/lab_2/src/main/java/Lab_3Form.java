@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -160,29 +157,28 @@ public class Lab_3Form extends javax.swing.JFrame {
             file = fileChooser.getSelectedFile().getAbsolutePath();
             System.out.println(file);
         }
-        FileReader reader = new FileReader();
 
-        if(file.endsWith("ReactorsJSON.json")){
-            ArrayList<Reactor>  reactors_type_data = reader.getFromJSON(file);
+        // Creating a chain of responsibility out of different readers
 
-        }
-        else if(file.endsWith("ReactorsXML.xml")){
-            ArrayList<Reactor> reactors_type_data = reader.getFromXML(file);
+        Reader jsonReader = new JSONReader();
+        Reader yamlReaer = new YAMLReader();
+        Reader xmlReader = new XMLReader();
 
-        }
+        jsonReader.setNextReader(yamlReaer);
+        yamlReaer.setNextReader(xmlReader);
+        xmlReader.setNextReader(null);
 
-        else if(file.endsWith("ReactorsYAML.yaml")) {
-            ArrayList<Reactor> reactors_type_data = reader.getFromYaml(file);
+        jsonReader.readFile(file);
 
-        }
-        else{System.out.println("Wrong file ");}
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void create_databaseActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jButton2ActionPerformed
 
+        // choosing which file to get data from
 
         JFileChooser fileChooser = new JFileChooser();
-
         fileChooser.setCurrentDirectory(new File("."));
         int response = fileChooser.showOpenDialog(null);
 
@@ -191,28 +187,32 @@ public class Lab_3Form extends javax.swing.JFrame {
             file = fileChooser.getSelectedFile().getAbsolutePath();
             System.out.println(file);
         }
-        DatabaseConnector db= new DatabaseConnector();
+
+        // reading data fro excel
         ExcelProvider reactors = new ExcelProvider();
         ArrayList<SQLTable> tables = reactors.read_data_for_db(file);
 
+        // connecting to a db
+        DatabaseConnector db= new DatabaseConnector();
+        DatabaseCreateor createor = new DatabaseCreateor();
         Connection conn = db.conncetion("reactors", "postgres", "F_7d3fd73");
         tables.forEach(b->{
             try {
-                db.createTabel(conn,b);
+                createor.createTabel(conn,b);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             try {
-                db.fillTable(conn, b);
+                createor.fillTable(conn, b);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         });
 
-        db.addForeingKey("sites", "units","id", "site" , conn);
-        db.addForeingKey("countries","sites", "id", "place", conn);
-        db.addForeingKey("companies", "sites","id","operator", conn);
-        db.addForeingKey("regions", "countries", "id", "region_id", conn);
+        createor.addForeingKey("sites", "units","id", "site" , conn);
+        createor.addForeingKey("countries","sites", "id", "place", conn);
+        createor.addForeingKey("companies", "sites","id","operator", conn);
+        createor.addForeingKey("regions", "countries", "id", "region_id", conn);
 
         conn.close();
     }//GEN-LAST:event_jButton2ActionPerformed

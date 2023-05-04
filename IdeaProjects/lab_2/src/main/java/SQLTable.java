@@ -28,5 +28,9 @@ public class SQLTable {
         return data.get(collumnNames[i]);
     }
 
+    public Object getFirstCellOfColumn(String column){
+        return data.get(column).get(0);
+    }
+
 
 }
